@@ -3,7 +3,8 @@
 Generating a square wordcloud from the US constitution using default arguments.
 Source: https://stackoverflow.com/questions/28786534/increase-resolution-with-word-cloud-and-remove-empty-border
 """
-
+import re
+import string
 import matplotlib.pyplot as plt
 import nltk
 import numpy as np
@@ -13,6 +14,8 @@ import PyPDF2
 from PIL import Image
 import collections
 from langdetect import detect, detect_langs
+
+stopwords = ['finally', 'are', 'was', 'also', 'which']  # Todo Not working
 
 # Input file location
 repo_path = 'C:/Users/X260/Desktop/'
@@ -41,45 +44,58 @@ def extract_all_text(filename):
 
 # function to sanitize the text
 # Universal Part-of-Speech Tagset => https://www.nltk.org/book/ch05.html
-    # ADJ	adjective	new, good, high, special, big, local # ADP	adposition	on, of, at, with, by, into, under
-    # ADV	adverb	really, already, still, early, now  # CONJ	conjunction	and, or, but, if, while, although
-    # DET	determiner, article	the, a, some, most, every, no, which # NOUN	noun	year, home, costs, time, Africa
-    # NUM	numeral	twenty-four, fourth, 1991, 14:24 # PRT	particle	at, on, out, over per, that, up, with
-    # PRON	pronoun	he, their, her, its, my, I, us # VERB	verb	is, say, told, given, playing, would
-    # .	punctuation marks	. , ; ! # X	other	ersatz, esprit, dunno, gr8, univeristy
+# ADJ	adjective	new, good, high, special, big, local # ADP	adposition	on, of, at, with, by, into, under
+# ADV	adverb	really, already, still, early, now  # CONJ	conjunction	and, or, but, if, while, although
+# DET	determiner, article	the, a, some, most, every, no, which # NOUN	noun	year, home, costs, time, Africa
+# NUM	numeral	twenty-four, fourth, 1991, 14:24 # PRT	particle	at, on, out, over per, that, up, with
+# PRON	pronoun	he, their, her, its, my, I, us # VERB	verb	is, say, told, given, playing, would
+# .	punctuation marks	. , ; ! # X	other	ersatz, esprit, dunno, gr8, univeristy
+
 def nlp_filter(text):
     lang = detect(text)
     langs = detect_langs(text)
     finaltext = ''
     for word in text.split(" "):
-        exclusion_list = ['DT', 'IN', 'RB', 'WP', 'JJ', 'CD', '.', ',', ':', 'POS', '[', 'WP', 'CC', 'PRP$', 'LS',
-                          'NNP', 'TO', 'IN', 'MD']
+        excluded_tags = ['DT', 'IN', 'RB', 'WP', 'JJ', 'CD', '.', ',', ':', 'POS', '[', 'WP', 'CC', 'PRP$', 'LS',
+                         'NNP', 'TO', 'IN', 'MD']
         token = word_tokenize(word)
         token_and_postag = nltk.pos_tag(token)[0]
 
         # print token_and_postag
         # exclude adpositions, conjunction, determiners, numerals, particle, pronouns and punctuation
-        print "token_and_postag: ", token_and_postag
-        # print "length: ", )
-        # if token_and_postag[1] in exclusion_list: # Not working with the list
-        if token_and_postag[1] != '.' and token_and_postag[1] != ',' and token_and_postag[1] != ':' and \
-                token_and_postag[1] != '[' and token_and_postag[1] != ']' and token_and_postag[1] != '&' and \
-                token_and_postag[1] != 'CC' and token_and_postag[1] != 'CD' and token_and_postag[1] != 'DT' and \
-                token_and_postag[1] != 'IN' and token_and_postag[1] != 'LS' and \
-                token_and_postag[1] != 'MD' and token_and_postag[1] != 'POS' and \
-                token_and_postag[1] != 'PRP$' and token_and_postag[1] != 'TO' and \
-                token_and_postag[1] != 'WP' and len(token_and_postag[1]) < 3:
-            print 'len(token_and_postag[1])', len(token_and_postag[1])
-            finaltext = finaltext + ' ' + word.upper()
+        # print "word: ", word # =  token[0]
+        # print 'lengthword: ', len(word)
+        # print "token: ", token[0]  # =  word
+        # print 'lengthtoken: ', len(token[0])
+        # print "token_and_postag: ", token_and_postag
 
-        # if token_and_postag[1] not in exclusion_list or \
-        # len(token_and_postag[1]) < 3:
+        if token[0] not in stopwords:  # Todo Not working with the list
+            if len(token[0]) > 2 and token_and_postag[1] != '.' and token_and_postag[1] != ',' \
+                    and token_and_postag[1] != ':' and token_and_postag[1] != '[' and token_and_postag[1] != ']' \
+                    and token_and_postag[1] != '&' and token_and_postag[1] != 'CC' and token_and_postag[1] != 'CD' \
+                    and token_and_postag[1] != 'DT' and token_and_postag[1] != 'IN' and token_and_postag[1] != 'LS' \
+                    and token_and_postag[1] != 'MD' and token_and_postag[1] != 'POS' and token_and_postag[1] != 'PRP$' \
+                    and token_and_postag[1] != 'RB' and token_and_postag[1] != 'TO' and token_and_postag[1] != 'WP':
+                finaltext = finaltext + ' ' + word.upper()
 
     # print 'Received finaltext :', text
-    # print 'finaltext filtered:', finaltext
-    print 'Languages probability:', langs
-    print 'Selected language:', lang
+    ## print 'finaltext filtered:', finaltext
+    # print 'Languages probability:', langs
+    # print 'Selected language:', lang
     return finaltext
+
+
+# handle accented & special character strings
+def handle_special_chars(text):
+    print "Input Text::{}".format(text)
+    regex = r"(\w|\s)*"
+    matches = re.finditer(regex, text, re.DOTALL)
+    newstr = ''
+    for matchNum, match in enumerate(matches):
+        matchNum = matchNum + 1
+        newstr = newstr + match.group()
+    print "Output Text::{}".format(newstr)
+    return newstr
 
 
 # function to swap number 0 to 255 in the mask image
@@ -99,26 +115,33 @@ for i in range(len(image_mask)):
     transformed_mask[i] = list(map(mask_transform_format, image_mask[i]))
 
 # Extract the sentences in the array and for a unique finaltext
-text_stream_array = extract_all_text(repo_path + input_file)  # Receives an array of sentences fron the input_file.pdf
+text_stream_array = extract_all_text(repo_path + input_file)  # Receives an array of sentences fronm the input_file.pdf
+# text_stream_array = text_stream_array.encode('utf-8') # Todo
 
-# Transfortm the array stream into a stream of string
+# Transform the array stream into a stream of string
 text_stream_string = ''
 for i in range(0, len(text_stream_array)):
     text_stream_string = text_stream_string + text_stream_array[i]
+
+# Exclude punctuations
+text_stream_string = re.sub(r"""
+               [,.;@#?!&$]+  # Accept one or more copies of punctuation
+               \ *           # plus zero or more copies of a space,
+               """,
+                            "",  # and replace it with a no space
+                            text_stream_string, flags=re.VERBOSE)
 
 # include only certain words. See filter in function transform_nlp()
 final_text = nlp_filter(text_stream_string)
 # nlp_filter("what, how, that, which")
 
 # Excluded words
-stopwords = STOPWORDS
-stopwords.add('Finally')
-max_words = 1000
+max_words = 100
 
-# Generate the Wordcloud data set and specifies the size of the image
+# Generates the Wordcloud data set and specifies the size of the image
 wordcloud = WordCloud(stopwords=stopwords, width=545, height=792, background_color="white",
                       max_words=max_words,
-                      # colormap="Blues",
+                      colormap="Oranges_r",
                       max_font_size=50, min_font_size=5,
                       # mask=image_mask
                       # mask=transformed_mask, contour_width=2, contour_color='blue'
