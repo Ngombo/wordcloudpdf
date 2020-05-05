@@ -68,7 +68,8 @@ def transform_nlp(text):
                 token_and_postag[1] != '.' and token_and_postag[1] != ',' and token_and_postag[1] != ':' and \
                 token_and_postag[1] != 'POS' and token_and_postag[1] != '[' and token_and_postag[1] != 'WP' and \
                 token_and_postag[1] != 'CC' and token_and_postag[1] != 'PRP$' and token_and_postag[1] != 'LS' and \
-                token_and_postag[1] != 'NNP' and token_and_postag[1] != 'TO' and token_and_postag[1] != 'IN' and token_and_postag[1] != 'MD':
+                token_and_postag[1] != 'NNP' and token_and_postag[1] != 'TO' and token_and_postag[1] != 'IN' and \
+                token_and_postag[1] != 'MD':
             finaltext = finaltext + ' ' + word.upper()
 
         # if token_and_postag[1] not in exclusion_list or \
@@ -89,11 +90,10 @@ def transform_format(val):
 # to create a shape (mask) for your wordcloud
 image_mask = np.array(Image.open(repo_path + "mask.png"))
 
-
 # Transform your mask into a new one that will work with the function:
-# transformed_mask = np.ndarray((image_mask.shape[0], image_mask.shape[1]), np.int32)
-# for i in range(len(image_mask)):
-#     transformed_mask[i] = list(map(transform_format, image_mask[i]))
+transformed_mask = np.ndarray((image_mask.shape[0], image_mask.shape[1]), np.int32)
+for i in range(len(image_mask)):
+    transformed_mask[i] = list(map(transform_format, image_mask[i]))
 
 # Extract the sentences in the array and for a unique finaltext
 filetext = extract_all_text(
