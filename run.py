@@ -14,8 +14,9 @@ from PIL import Image
 import collections
 from langdetect import detect, detect_langs
 
+# Input file location
 repo_path = 'C:/Users/X260/Desktop/'
-input_file = '5G_health.pdf'
+input_file = 'thesis.pdf'
 
 
 # Extract all the text from the pdf file into a stream
@@ -39,18 +40,13 @@ def extract_all_text(filename):
 
 
 # function to sanitize the text
-# ADJ	adjective	new, good, high, special, big, local
-# ADP	adposition	on, of, at, with, by, into, under
-# ADV	adverb	really, already, still, early, now
-# CONJ	conjunction	and, or, but, if, while, although
-# DET	determiner, article	the, a, some, most, every, no, which
-# NOUN	noun	year, home, costs, time, Africa
-# NUM	numeral	twenty-four, fourth, 1991, 14:24
-# PRT	particle	at, on, out, over per, that, up, with
-# PRON	pronoun	he, their, her, its, my, I, us
-# VERB	verb	is, say, told, given, playing, would
-# .	punctuation marks	. , ; !
-# X	other	ersatz, esprit, dunno, gr8, univeristy
+# Universal Part-of-Speech Tagset => https://www.nltk.org/book/ch05.html
+    # ADJ	adjective	new, good, high, special, big, local # ADP	adposition	on, of, at, with, by, into, under
+    # ADV	adverb	really, already, still, early, now  # CONJ	conjunction	and, or, but, if, while, although
+    # DET	determiner, article	the, a, some, most, every, no, which # NOUN	noun	year, home, costs, time, Africa
+    # NUM	numeral	twenty-four, fourth, 1991, 14:24 # PRT	particle	at, on, out, over per, that, up, with
+    # PRON	pronoun	he, their, her, its, my, I, us # VERB	verb	is, say, told, given, playing, would
+    # .	punctuation marks	. , ; ! # X	other	ersatz, esprit, dunno, gr8, univeristy
 def nlp_filter(text):
     lang = detect(text)
     langs = detect_langs(text)
@@ -73,6 +69,7 @@ def nlp_filter(text):
                 token_and_postag[1] != 'MD' and token_and_postag[1] != 'POS' and \
                 token_and_postag[1] != 'PRP$' and token_and_postag[1] != 'TO' and \
                 token_and_postag[1] != 'WP' and len(token_and_postag[1]) < 3:
+            print 'len(token_and_postag[1])', len(token_and_postag[1])
             finaltext = finaltext + ' ' + word.upper()
 
         # if token_and_postag[1] not in exclusion_list or \
@@ -119,7 +116,7 @@ stopwords.add('Finally')
 max_words = 1000
 
 # Generate the Wordcloud data set and specifies the size of the image
-wordcloud = WordCloud(stopwords=stopwords, width=595, height=842, background_color="white",
+wordcloud = WordCloud(stopwords=stopwords, width=545, height=792, background_color="white",
                       max_words=max_words,
                       # colormap="Blues",
                       max_font_size=50, min_font_size=5,
@@ -148,8 +145,8 @@ plt.imshow(wordcloud, interpolation="bilinear")
 # plt.imshow(wordcloud.recolor(color_func=image_colors), cmap='gray_r', interpolation="bilinear")
 
 plt.axis("off")
-
-# plt.savefig('wordcloud.png', facecolor='k', bbox_inches='tight') # get the final output in a pdf file
+plt.savefig(repo_path + 'wordcloud.pdf', bbox_inches='tight')  # get the final output in a pdf file
+plt.savefig(repo_path + 'wordcloud.png', bbox_inches='tight')  # get the final output in a png file
 plt.tight_layout(pad=0)
 
 # Display the image
