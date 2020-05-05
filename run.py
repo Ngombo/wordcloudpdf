@@ -4,7 +4,6 @@ Generating a square wordcloud from the US constitution using default arguments.
 Source: https://stackoverflow.com/questions/28786534/increase-resolution-with-word-cloud-and-remove-empty-border
 """
 
-from os import path
 import matplotlib.pyplot as plt
 import nltk
 import numpy as np
@@ -13,9 +12,10 @@ from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 import PyPDF2
 from PIL import Image
 import collections
-import re
+from langdetect import detect, detect_langs
 
 repo_path = 'C:/Users/X260/Desktop/'
+input_file = '5G_health.pdf'
 
 
 # Extract all the text from the pdf file into a stream
@@ -34,8 +34,8 @@ def extract_all_text(filename):
             pcontent = page.extractText() + "\n"
             pcontent = " ".join(pcontent.replace(u"\xa0", u" ").strip().split())
             page_text.append(pcontent)
-        print '#IncludedPages:', i+1
-    return (page_text)
+        print '#IncludedPages:', i + 1
+    return page_text
 
 
 # function to sanitize the text
@@ -51,8 +51,9 @@ def extract_all_text(filename):
 # VERB	verb	is, say, told, given, playing, would
 # .	punctuation marks	. , ; !
 # X	other	ersatz, esprit, dunno, gr8, univeristy
-def nlp_transform(text):
-
+def nlp_filter(text):
+    lang = detect(text)
+    langs = detect_langs(text)
     finaltext = ''
     for word in text.split(" "):
         exclusion_list = ['DT', 'IN', 'RB', 'WP', 'JJ', 'CD', '.', ',', ':', 'POS', '[', 'WP', 'CC', 'PRP$', 'LS',
@@ -76,8 +77,11 @@ def nlp_transform(text):
 
         # if token_and_postag[1] not in exclusion_list or \
         # len(token_and_postag[1]) < 3:
-    print 'Received finaltext :', text
-    print 'finaltext filtered:', finaltext
+
+    # print 'Received finaltext :', text
+    # print 'finaltext filtered:', finaltext
+    print 'Languages probability:', langs
+    print 'Selected language:', lang
     return finaltext
 
 
@@ -98,32 +102,33 @@ for i in range(len(image_mask)):
     transformed_mask[i] = list(map(mask_transform_format, image_mask[i]))
 
 # Extract the sentences in the array and for a unique finaltext
-filetext = extract_all_text(
-    repo_path + 'Zoom_for_ Higher_Education.pdf')  # Receives an array of sentences
-finaltext = ''
+text_stream_array = extract_all_text(repo_path + input_file)  # Receives an array of sentences fron the input_file.pdf
 
-for i in range(0, len(filetext)):
-    finaltext = finaltext + filetext[i]
+# Transfortm the array stream into a stream of string
+text_stream_string = ''
+for i in range(0, len(text_stream_array)):
+    text_stream_string = text_stream_string + text_stream_array[i]
 
-transformed_finaltext = nlp_transform(finaltext)  # include only certain words. See filter in function transform_nlp()
-# transform_nlp("what, how, that, which")
+# include only certain words. See filter in function transform_nlp()
+final_text = nlp_filter(text_stream_string)
+# nlp_filter("what, how, that, which")
 
 # Excluded words
 stopwords = STOPWORDS
 stopwords.add('Finally')
-max_words = 100
+max_words = 1000
 
 # Generate the Wordcloud data set and specifies the size of the image
 wordcloud = WordCloud(stopwords=stopwords, width=595, height=842, background_color="white",
-                      # max_words=max_words,
+                      max_words=max_words,
                       # colormap="Blues",
-                      # max_font_size=50, min_font_size=1,
+                      max_font_size=50, min_font_size=5,
                       # mask=image_mask
                       # mask=transformed_mask, contour_width=2, contour_color='blue'
-                      ).generate(transformed_finaltext)
+                      ).generate(final_text)
 
 # Verifies the top words
-filtered_words = [word for word in transformed_finaltext.split() if word not in stopwords]
+filtered_words = [word for word in final_text.split() if word not in stopwords]
 counted_words = collections.Counter(filtered_words)
 words = []
 counts = []
