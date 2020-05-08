@@ -1,29 +1,29 @@
-This program was written in python and generates the top-100 wordcloud from pdf files. Many aspects can be customized, including the number of top words, colours, masks and stopwords.
+This program was written in python and generates the top-100 word cloud from pdf files. Many aspects can be customized, including the number of top words, colours, masks and stopwords.
 
 # Installation 
 
 Tested in python-2.7.18.amd64 and python-3.8.2-amd64, IDE Pycharm 2019.2.6.
 
-After clonging the project, you may need to tnstall the following packages:
+After cloning the project, you may need to install the following packages:
 
-* wordcloud  => To prepare the enablers and customize the wordcloud
-* matplotlib.pyplot => To plot the wordcloud
+* wordcloud  => To prepare the enablers and customize the word cloud
+* matplotlib.pyplot => To plot the word cloud
 * nltk => Optional use. To inseure the sanitization the text that will be plotted in case the STOPWORDS from the Wordcloud package bugs. 
 
 It will enable to detect the tokens by lexical type and omit massively the lexical categories that we do not want to plot. 
-e.g: **Determiners & articles** *(the, a ...)*, **Numericals** *(1, two, third ...)*,  **Adverbs** *(really, already, still, early, now)*, **Conjunction** *(and, or, but, if, while, although...)*. 
+e.g., **Determiners & articles** *(the, a ...)*, **Numericals** *(1, two, third ...)*,  **Adverbs** *(really, already, still, early, now)*, **Conjunction** *(and, or, but, if, while, although...)*. 
 
-**<ins>obs</ins>**: nltk sometimes requires installling from the command line e.g. pip install nltk==2.0.5.
+**<ins>obs</ins>**: nltk sometimes requires installing from the command line, e.g. pip install nltk==2.0.5.
 
-if right-clic does not work, launch it from the system cmd > pip install wordcloud.
+If the right-click does not work, launch it from the system cmd > pip install word cloud.
 
 **<ins>obs</ins>**: Microsoft Visual C++ 14.0 is required. Follow further instruction on https://www.scivision.dev/python-windows-visual-c-14-required/)
 
 * PyPDF2 => To extract all the text from the pdf file into a stream
-* numpy => Optional use, to create a shape (mask) for the wordcloud
-* PIL => to create a shape (mask) for the wordcloud
-* collections => Optional use in a check functionality that will print the top-words list
-* langdetect => Optional use for future applicatins to enable different processing based on the detected language
+* numpy => Optional use, to create a shape (mask) for the word cloud
+* PIL => to create a shape (mask) for the word cloud
+* collections => Optional use in a checking  functionality that will print the top-words list
+* langdetect => Optional use for future enhancements to enable different processing based on the detected language
 
 # Configuration
 Specify both the location path and name of the document to be processed.
