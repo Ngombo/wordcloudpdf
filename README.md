@@ -28,5 +28,5 @@ repo_path = 'C:/Users/../Desktop/'
 input_file = 'EPRS_BRI(2020)646172_EN.pdf' # example document available on https://www.europarl.europa.eu/RegData/etudes/BRIE/2020/646172/EPRS_BRI(2020)646172_EN.pdf
 
 ## output wordcloud
-![wordcloud](https://user-images.githubusercontent.com/28622444/81427040-0d050500-9152-11ea-97f8-c1a032a98882.png)
+![wordcloud](https://user-images.githubusercontent.com/28622444/81429128-43904f00-9155-11ea-94e6-e9b58ef072ca.png)
 
