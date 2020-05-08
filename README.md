@@ -1,4 +1,4 @@
-This program was written in python and generates a wordcloud from pdf files.
+This program was written in python and generates the top-100 wordcloud from pdf files. Many aspects can be customized, including the number of top words, colours, masks and stopwords.
 
 # Installation (Tested in python-2.7.18.amd64 and python-3.8.2-amd64)
 Install the folowing libraries;
