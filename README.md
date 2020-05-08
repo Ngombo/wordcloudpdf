@@ -14,9 +14,12 @@ e.g: **Determiners & articles** *(the, a ...)*, **Numericals** *(1, two, third .
 
 **<ins>obs</ins>**: nltk sometimes requires installling from the command line e.g. pip install nltk==2.0.5.
 
-* wordcloud (if right-clic does not work, launch in the system cmd > pip install wordcloud.
+* wordcloud  => To prepare the enablers and customize the wordcloud
 
-Microsoft Visual C++ 14.0 is required. https://www.scivision.dev/python-windows-visual-c-14-required/)
+if right-clic does not work, launch it from the system cmd > pip install wordcloud.
+
+**<ins>obs</ins>**: Microsoft Visual C++ 14.0 is required. Follow further instruction on https://www.scivision.dev/python-windows-visual-c-14-required/)
+
 * PyPDF2 => To extract all the text from the pdf file into a stream
 * numpy => Optional use, to create a shape (mask) for the wordcloud
 * PIL => to create a shape (mask) for the wordcloud
@@ -31,10 +34,10 @@ Specify both the location path and name of the document to be processed.
 The pdf files generated from Latex may present some troubles for the pages created with the insertion of other pdf documents.
 
 # Tested case
-## input document
+## Input document
 repo_path = 'C:/Users/../Desktop/'
 input_file = 'EPRS_BRI(2020)646172_EN.pdf' # example document available on https://www.europarl.europa.eu/RegData/etudes/BRIE/2020/646172/EPRS_BRI(2020)646172_EN.pdf
 
-## output wordcloud
+## Output wordcloud
 ![wordcloud](https://user-images.githubusercontent.com/28622444/81429128-43904f00-9155-11ea-94e6-e9b58ef072ca.png)
 
