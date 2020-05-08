@@ -1,5 +1,5 @@
 This program was writter in python and generates a wordcloud from pdf files.
-# Installation (Tested in python 3.xx)
+# Installation (Tested in python 3.8.2)
 * Install the folowing libraries
 * matplotlib.pyplot (pip install xx
 * nltk (pip install xx
