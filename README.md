@@ -26,6 +26,6 @@ repo_path = 'C:/Users/../Desktop/'
 input_file = 'EPRS_BRI(2020)646172_EN.pdf' # example document available on https://www.europarl.europa.eu/RegData/etudes/BRIE/2020/646172/EPRS_BRI(2020)646172_EN.pdf
 
 ## output
-![alt text](http://url/to/C:/Users/X260/Desktop/wordcloud.png)
+![Alt text](relative/path/to/C:/Users/X260/Desktop/wordcloud.png?raw=true "Wordcloud") 
 ![alt text](https://github.com/[username]/[reponame]/blob/[branch]/C:/Users/X260/Desktop/wordcloud.png?raw=true)
 
