@@ -12,17 +12,17 @@ import matplotlib.pyplot as plt
 import nltk
 import numpy as np
 from nltk import word_tokenize
-from wc import WordCloud, STOPWORDS, ImageColorGenerator
+from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 import PyPDF2
 from PIL import Image
 import collections
 from langdetect import detect, detect_langs
 
-
-
-#todo => https://github.com/amueller/word_cloud/blob/master/examples/masked.py
+# todo => https://github.com/amueller/word_cloud/blob/master/examples/masked.py
 
 stpwords = ['finally', 'are', 'was', 'also', 'which']  # Todo Seems not to be working
+excluded_posttags = ['DT', 'IN', 'RB', 'WP', 'JJ', 'CD', '.', ',', ':', 'POS', '[', 'WP', 'CC', 'PRP$', 'LS',
+                 'NNP', 'TO', 'IN', 'MD']
 
 # Input file location
 repo_path = 'C:/Users/X260/Desktop/'
@@ -63,13 +63,9 @@ def nlp_filter(text):
     langs = detect_langs(text)
     finaltext = ''
     for word in text.split(" "):
-        excluded_tags = ['DT', 'IN', 'RB', 'WP', 'JJ', 'CD', '.', ',', ':', 'POS', '[', 'WP', 'CC', 'PRP$', 'LS',
-                         'NNP', 'TO', 'IN', 'MD']
         token = word_tokenize(word)
         token_and_postag = nltk.pos_tag(token)[0]
-
         # print token_and_postag
-        # exclude adpositions, conjunction, determiners, numerals, particle, pronouns and punctuation
         # print "word: ", word # =  token[0]
         # print 'lengthword: ', len(word)
         # print "token: ", token[0]  # =  word
@@ -86,7 +82,7 @@ def nlp_filter(text):
                 finaltext = finaltext + ' ' + word.upper()
 
     # print 'Received finaltext :', text
-    ## print 'finaltext filtered:', finaltext
+    # print 'finaltext filtered:', finaltext
     # print 'Languages probability:', langs
     # print 'Selected language:', lang
     return finaltext
@@ -116,19 +112,23 @@ def mask_transform_format(val):
 # to create a shape (mask) for the wordcloud
 image_mask = np.array(Image.open("mask/mask.png"))
 
+
 # Transform your mask into a new one that will work with the function:
 transformed_mask = np.ndarray((image_mask.shape[0], image_mask.shape[1]), np.int32)
 for i in range(len(image_mask)):
     transformed_mask[i] = list(map(mask_transform_format, image_mask[i]))
 
+
 # Extract the sentences in the array and for a unique finaltext
 text_stream_array = extract_all_text(repo_path + input_file)  # Receives an array of sentences fronm the input_file.pdf
 # text_stream_array = text_stream_array.encode('utf-8') # Todo
+
 
 # Transform the array stream into a stream of string
 text_stream_string = ''
 for i in range(0, len(text_stream_array)):
     text_stream_string = text_stream_string + text_stream_array[i]
+
 
 # Exclude punctuations
 text_stream_string = re.sub(r"""
@@ -138,28 +138,19 @@ text_stream_string = re.sub(r"""
                             "",  # and replace it with a no space
                             text_stream_string, flags=re.VERBOSE)
 
+
 # Since STOPWORDS fro Workdloud package seems not to be working, we will
 # use NLP enabler to include only certain words. See filter in function transform_nlp()
 final_text = nlp_filter(text_stream_string)
 # nlp_filter("what, how, that, which")
 
+
 # Excluded words
-max_words = 100
+max_words = 100  # default=200
 
-stopwords = set(STOPWORDS)
-
-# Generates the Wordcloud data set and specifies the size of the image
-wc = WordCloud(stopwords=STOPWORDS,  # seems nNot to be working
-               width=545, height=792,
-               background_color="white",
-               max_words=max_words,
-               #colormap="Oranges_r",
-               max_font_size=50, min_font_size=5,
-               # mask=image_mask
-               mask=transformed_mask, contour_width=1, contour_color='red'
-               ).generate(final_text)
 
 # Verifies the top words
+stopwords = set(STOPWORDS)
 filtered_words = [word for word in final_text.split() if word not in stopwords]
 counted_words = collections.Counter(filtered_words)
 words = []
@@ -170,18 +161,34 @@ for letter, count in counted_words.most_common(max_words):
 print('Words: ', words)
 print('Frequency: ', counts)
 
-# # # Opens a plot of the generated image, defining the minimum and maximum size of the words, plus the facecolor.
+
+# Generates the Wordcloud data set and specifies the size of the image
+wc = WordCloud(stopwords=STOPWORDS,  # seems nNot to be working
+               width=545, height=792,
+               background_color="white",
+               max_words=max_words,
+               # colormap="Oranges_r",
+               max_font_size=50, min_font_size=5,
+               # mask=image_mask
+               mask=transformed_mask, contour_width=1, contour_color='green'
+               )
+
+wc.generate(final_text)
+
+
+# # create coloring from image #Todo
+# image_colors = ImageColorGenerator(image_mask)
+# wc.recolor(color_func=transformed_mask)
+
+
+# Opens a plot of the generated image, defining the minimum and maximum size of the words, plus the facecolor.
 plt.figure(figsize=(20, 10), facecolor='k')
 plt.imshow(wc, interpolation="bilinear")
-
-# # create coloring from image
-# image_colors = ImageColorGenerator(image_mask)
-# plt.figure(figsize=[7,7])
-# plt.imshow(wordcloud.recolor(color_func=image_colors), cmap='gray_r', interpolation="bilinear")
-
 plt.axis("off")
-plt.savefig(repo_path + 'wordcloud.pdf', bbox_inches='tight')  # get the final output in a pdf file
-plt.savefig(repo_path + 'wordcloud.png', bbox_inches='tight')  # get the final output in a png file
+
+# Exports the final output in a pdf and png files
+plt.savefig(repo_path + 'wordcloud.pdf', bbox_inches='tight')
+plt.savefig(repo_path + 'wordcloud.png', bbox_inches='tight')
 plt.tight_layout(pad=0)
 
 # Display the image
