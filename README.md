@@ -7,7 +7,7 @@ Install the folowing libraries
 * numpy (pip install xx
 * wordcloud (if right-clic does not work, launch in the system cmd > pip install wordcloud.
 
-Microsoft Visual C++ 14.0 is required. Get it with "Microsoft Visual C++ Build Tools": https://visualstudio.microsoft.com/downloads/)
+Microsoft Visual C++ 14.0 is required. https://www.scivision.dev/python-windows-visual-c-14-required/)
 * PyPDF2 (pip install xx
 * PIL (pip install xx
 * collections (pip install xx 
