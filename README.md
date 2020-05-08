@@ -6,15 +6,14 @@ Tested in python-2.7.18.amd64 and python-3.8.2-amd64, IDE Pycharm 2019.2.6.
 
 After clonging the project, you may need to tnstall the following packages:
 
+* wordcloud  => To prepare the enablers and customize the wordcloud
 * matplotlib.pyplot => To plot the wordcloud
-* nltk => To sanitize the text that will be plotted. 
+* nltk => Optional use. To inseure the sanitization the text that will be plotted in case the STOPWORDS from the Wordcloud package bugs. 
 
 It will enable to detect the tokens by lexical type and omit massively the lexical categories that we do not want to plot. 
 e.g: **Determiners & articles** *(the, a ...)*, **Numericals** *(1, two, third ...)*,  **Adverbs** *(really, already, still, early, now)*, **Conjunction** *(and, or, but, if, while, although...)*. 
 
 **<ins>obs</ins>**: nltk sometimes requires installling from the command line e.g. pip install nltk==2.0.5.
-
-* wordcloud  => To prepare the enablers and customize the wordcloud
 
 if right-clic does not work, launch it from the system cmd > pip install wordcloud.
 
