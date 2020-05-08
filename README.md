@@ -13,7 +13,7 @@ This program was writter in python and generates a wordcloud from pdf files.
 # Configuration
 Udpated the directory where the source file is located and the name of the file to be processed.
 * repo_path = 'C:/..../'
-* input_file = 'xxx.pdf.
+* input_file = 'xxx.pdf'
 
 The pdf files generated from Latx may presente some trouble for the pages created with the insertion of oter pdf documentos.
 
