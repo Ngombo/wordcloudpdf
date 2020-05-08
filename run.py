@@ -112,7 +112,7 @@ def mask_transform_format(val):
 
 
 # to create a shape (mask) for the wordcloud
-image_mask = np.array(Image.open(repo_path + "mask.png"))
+image_mask = np.array(Image.open("mask/mask.png"))
 
 # Transform your mask into a new one that will work with the function:
 transformed_mask = np.ndarray((image_mask.shape[0], image_mask.shape[1]), np.int32)
@@ -146,10 +146,10 @@ max_words = 100
 # Generates the Wordcloud data set and specifies the size of the image
 wordcloud = WordCloud(stopwords=stopwords, width=545, height=792, background_color="white",
                       max_words=max_words,
-                      colormap="Oranges_r",
+                      #colormap="Oranges_r",
                       max_font_size=50, min_font_size=5,
                       # mask=image_mask
-                      # mask=transformed_mask, contour_width=2, contour_color='blue'
+                      mask=transformed_mask, contour_width=1, contour_color='red'
                       ).generate(final_text)
 
 # Verifies the top words
