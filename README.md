@@ -28,6 +28,7 @@ if right-clic does not work, launch it from the system cmd > pip install wordclo
 
 # Configuration
 Specify both the location path and name of the document to be processed.
+
 * repo_path = 'C:/..../'
 * input_file = 'xxx.pdf'
 
@@ -36,7 +37,9 @@ The pdf files generated from Latex may present some troubles for the pages creat
 # Tested case
 ## Input document
 repo_path = 'C:/Users/../Desktop/'
-input_file = 'EPRS_BRI(2020)646172_EN.pdf' # example document available on https://www.europarl.europa.eu/RegData/etudes/BRIE/2020/646172/EPRS_BRI(2020)646172_EN.pdf
+input_file = 'EPRS_BRI(2020)646172_EN.pdf' 
+
+The document  used for the example is available on https://www.europarl.europa.eu/RegData/etudes/BRIE/2020/646172/EPRS_BRI(2020)646172_EN.pdf
 
 ## Output wordcloud
 ![wordcloud](https://user-images.githubusercontent.com/28622444/81429128-43904f00-9155-11ea-94e6-e9b58ef072ca.png)
