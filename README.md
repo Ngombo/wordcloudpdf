@@ -4,7 +4,7 @@ This program was written in python and generates the top-100 wordcloud from pdf 
 
 Tested in python-2.7.18.amd64 and python-3.8.2-amd64, IDE Pycharm 2019.2.6.
 
-After clonging the project, you may need to tnstall the folowing libraries:
+After clonging the project, you may need to tnstall the following packages:
 
 * matplotlib.pyplot => To plot the wordcloud
 * nltk => To sanitize the text that will be plotted. 
