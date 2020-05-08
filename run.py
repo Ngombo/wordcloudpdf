@@ -1,7 +1,8 @@
 """
 ===============
 Generating a square wordcloud from the US constitution using default arguments.
-Source: https://stackoverflow.com/questions/28786534/increase-resolution-with-word-cloud-and-remove-empty-border
+inspired from https://stackoverflow.com/questions/28786534/increase-resolution-with-word-cloud-and-remove-empty-border
+              https://github.com/amueller/word_cloud/blob/master/examples/masked.py
 """
 import re
 import string
@@ -15,11 +16,15 @@ from PIL import Image
 import collections
 from langdetect import detect, detect_langs
 
+
+
+#todo => https://github.com/amueller/word_cloud/blob/master/examples/masked.py
+
 stopwords = ['finally', 'are', 'was', 'also', 'which']  # Todo Not working
 
 # Input file location
 repo_path = 'C:/Users/X260/Desktop/'
-input_file = 'thesis.pdf'
+input_file = '5G_health.pdf'
 
 
 # Extract all the text from the pdf file into a stream
@@ -31,14 +36,14 @@ def extract_all_text(filename):
         # excluded_end_pages = 29  # From bibliography to the end of the document
         excluded_begin_pages = 0  # Pages before introduction
         excluded_end_pages = 0  # From bibliography to the end of the document
-        print '#TotalPages:', f.getNumPages()
+        print('#TotalPages:', f.getNumPages())
         # for i in range(0, f.getNumPages()):
         for i in range(excluded_begin_pages, f.getNumPages() - excluded_end_pages):
             page = f.getPage(i)
             pcontent = page.extractText() + "\n"
             pcontent = " ".join(pcontent.replace(u"\xa0", u" ").strip().split())
             page_text.append(pcontent)
-        print '#IncludedPages:', i + 1
+        print('#IncludedPages:', i + 1)
     return page_text
 
 
@@ -87,14 +92,14 @@ def nlp_filter(text):
 
 # handle accented & special character strings
 def handle_special_chars(text):
-    print "Input Text::{}".format(text)
+    print("Input Text::{}".format(text))
     regex = r"(\w|\s)*"
     matches = re.finditer(regex, text, re.DOTALL)
     newstr = ''
     for matchNum, match in enumerate(matches):
         matchNum = matchNum + 1
         newstr = newstr + match.group()
-    print "Output Text::{}".format(newstr)
+    print("Output Text::{}".format(newstr))
     return newstr
 
 
@@ -106,7 +111,7 @@ def mask_transform_format(val):
         return val
 
 
-# to create a shape (mask) for your wordcloud
+# to create a shape (mask) for the wordcloud
 image_mask = np.array(Image.open(repo_path + "mask.png"))
 
 # Transform your mask into a new one that will work with the function:
@@ -155,8 +160,8 @@ counts = []
 for letter, count in counted_words.most_common(max_words):
     words.append(letter)
     counts.append(count)
-print 'Words: ', words
-print 'Frequency: ', counts
+print('Words: ', words)
+print('Frequency: ', counts)
 
 # # # Opens a plot of the generated image, defining the minimum and maximum size of the words, plus the facecolor.
 plt.figure(figsize=(20, 10), facecolor='k')
