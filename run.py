@@ -3,14 +3,16 @@
 Generating a square wordcloud from the US constitution using default arguments.
 inspired from https://stackoverflow.com/questions/28786534/increase-resolution-with-word-cloud-and-remove-empty-border
               https://github.com/amueller/word_cloud/blob/master/examples/masked.py
+              https://www.youtube.com/watch?v=95p3cVkqYHQ
 """
 import re
+from os import path
 import string
 import matplotlib.pyplot as plt
 import nltk
 import numpy as np
 from nltk import word_tokenize
-from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
+from wc import WordCloud, STOPWORDS, ImageColorGenerator
 import PyPDF2
 from PIL import Image
 import collections
@@ -20,7 +22,7 @@ from langdetect import detect, detect_langs
 
 #todo => https://github.com/amueller/word_cloud/blob/master/examples/masked.py
 
-stopwords = ['finally', 'are', 'was', 'also', 'which']  # Todo Not working
+stpwords = ['finally', 'are', 'was', 'also', 'which']  # Todo Seems not to be working
 
 # Input file location
 repo_path = 'C:/Users/X260/Desktop/'
@@ -74,7 +76,7 @@ def nlp_filter(text):
         # print 'lengthtoken: ', len(token[0])
         # print "token_and_postag: ", token_and_postag
 
-        if token[0] not in stopwords:  # Todo Not working with the list
+        if token[0] not in stpwords:  # Todo seems nNot to be working with the list
             if len(token[0]) > 2 and token_and_postag[1] != '.' and token_and_postag[1] != ',' \
                     and token_and_postag[1] != ':' and token_and_postag[1] != '[' and token_and_postag[1] != ']' \
                     and token_and_postag[1] != '&' and token_and_postag[1] != 'CC' and token_and_postag[1] != 'CD' \
@@ -136,21 +138,26 @@ text_stream_string = re.sub(r"""
                             "",  # and replace it with a no space
                             text_stream_string, flags=re.VERBOSE)
 
-# include only certain words. See filter in function transform_nlp()
+# Since STOPWORDS fro Workdloud package seems not to be working, we will
+# use NLP enabler to include only certain words. See filter in function transform_nlp()
 final_text = nlp_filter(text_stream_string)
 # nlp_filter("what, how, that, which")
 
 # Excluded words
 max_words = 100
 
+stopwords = set(STOPWORDS)
+
 # Generates the Wordcloud data set and specifies the size of the image
-wordcloud = WordCloud(stopwords=stopwords, width=545, height=792, background_color="white",
-                      max_words=max_words,
-                      #colormap="Oranges_r",
-                      max_font_size=50, min_font_size=5,
-                      # mask=image_mask
-                      mask=transformed_mask, contour_width=1, contour_color='red'
-                      ).generate(final_text)
+wc = WordCloud(stopwords=STOPWORDS,  # seems nNot to be working
+               width=545, height=792,
+               background_color="white",
+               max_words=max_words,
+               #colormap="Oranges_r",
+               max_font_size=50, min_font_size=5,
+               # mask=image_mask
+               mask=transformed_mask, contour_width=1, contour_color='red'
+               ).generate(final_text)
 
 # Verifies the top words
 filtered_words = [word for word in final_text.split() if word not in stopwords]
@@ -165,7 +172,7 @@ print('Frequency: ', counts)
 
 # # # Opens a plot of the generated image, defining the minimum and maximum size of the words, plus the facecolor.
 plt.figure(figsize=(20, 10), facecolor='k')
-plt.imshow(wordcloud, interpolation="bilinear")
+plt.imshow(wc, interpolation="bilinear")
 
 # # create coloring from image
 # image_colors = ImageColorGenerator(image_mask)
