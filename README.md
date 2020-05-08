@@ -18,7 +18,7 @@ Udpated the directory where the source file is located and the name of the file 
 * repo_path = 'C:/..../'
 * input_file = 'xxx.pdf'
 
-The pdf files generated from Latex may presente some trouble for the pages created with the insertion of oter pdf documentos.
+The pdf files generated from Latex may present some troubles for the pages created with the insertion of oter pdf documentos.
 
 # Exemple
 ## input
