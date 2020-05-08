@@ -1,10 +1,18 @@
 This program was written in python and generates the top-100 wordcloud from pdf files. Many aspects can be customized, including the number of top words, colours, masks and stopwords.
 
-# Installation (Tested in python-2.7.18.amd64 and python-3.8.2-amd64)
-Install the folowing libraries;
+# Installation 
+
+Tested in python-2.7.18.amd64 and python-3.8.2-amd64, IDE Pycharm 2019.2.6.
+
+After clonging the project, you may need to tnstall the folowing libraries:
 
 * matplotlib.pyplot => To plot the wordcloud
-* nltk => To sanitize the text that will be plotted. It will enable to detect the tokens by lexical type and omit massively the lexical categories that we do not want to plot. e.g: determiners and articles (the, a ...), numericals (1, two, third ...),  Adverbs (really, already, still, early, now), conjunction (and, or, but, if, while, although...). nltk sometimes requires installling from the command line e.g. pip install nltk==2.0.5.
+* nltk => To sanitize the text that will be plotted. 
+
+It will enable to detect the tokens by lexical type and omit massively the lexical categories that we do not want to plot. 
+e.g: **Determiners & articles** *(the, a ...)*, **Numericals** *(1, two, third ...)*,  **Adverbs** *(really, already, still, early, now)*, **Conjunction** *(and, or, but, if, while, although...)*. 
+
+**<ins>obs</ins>**: nltk sometimes requires installling from the command line e.g. pip install nltk==2.0.5.
 
 * wordcloud (if right-clic does not work, launch in the system cmd > pip install wordcloud.
 
