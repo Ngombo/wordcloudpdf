@@ -1,6 +1,6 @@
 This program was written in python and generates a wordcloud from pdf files.
 
-# Installation (Tested in python-3.8.2-amd64)
+# Installation (Tested in python-2.7.18.amd64 and python-3.8.2-amd64)
 Install the folowing libraries;
 
 * matplotlib.pyplot => To plot the wordcloud
@@ -12,7 +12,7 @@ Microsoft Visual C++ 14.0 is required. https://www.scivision.dev/python-windows-
 * PyPDF2 => To extract all the text from the pdf file into a stream
 * numpy => Optional use, to create a shape (mask) for the wordcloud
 * PIL => to create a shape (mask) for the wordcloud
-* collections => Optional use in a check functionality that will print the top words list
+* collections => Optional use in a check functionality that will print the top-words list
 * langdetect => Optional use for future applicatins to enable different processing based on the detected language
 
 # Configuration
