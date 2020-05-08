@@ -5,7 +5,8 @@ Install the folowing libraries
 * matplotlib.pyplot (pip install xx) to plot the wordcloud
 * nltk (e.g. pip install nltk==2.0.5) To sanitize the text to be plotted i.e, will enable to detect the tokens by lexical type, and omit massively the categories that we dont want to plot. e.g: determiners and articles (the, a ...), numericals (1, two, third ...),  Adverbs (really, already, still, early, now), conjunction (and, or, but, if, while, although...)
 * numpy (pip install xx
-* wordcloud (pip install xx
+* wordcloud (if right-clic does not work, go in the system cmd and pip install wordcloud.
+Microsoft Visual C++ 14.0 is required. Get it with "Microsoft Visual C++ Build Tools": https://visualstudio.microsoft.com/downloads/)
 * PyPDF2 (pip install xx
 * PIL (pip install xx
 * collections (pip install xx 
