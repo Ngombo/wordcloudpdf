@@ -6,7 +6,11 @@ Tested in python-2.7.18.amd64 and python-3.8.2-amd64, IDE Pycharm 2019.2.6.
 
 After cloning the project, you may need to install the following packages:
 
-* wordcloud  => To prepare the enablers and customize the word cloud
+* wordcloud  => To prepare the enablers and customize the word cloud.
+
+If the right-click does not work, launch it from the system cmd > pip install word cloud.
+**<ins>obs</ins>**: Microsoft Visual C++ 14.0 is required. Follow further instruction on https://www.scivision.dev/python-windows-visual-c-14-required/)
+
 * matplotlib.pyplot => To plot the word cloud
 * nltk => Optional use. To inseure the sanitization the text that will be plotted in case the STOPWORDS from the Wordcloud package bugs. 
 
@@ -14,10 +18,6 @@ It will enable to detect the tokens by lexical type and omit massively the lexic
 e.g., **Determiners & articles** *(the, a ...)*, **Numericals** *(1, two, third ...)*,  **Adverbs** *(really, already, still, early, now)*, **Conjunction** *(and, or, but, if, while, although...)*. 
 
 **<ins>obs</ins>**: nltk sometimes requires installing from the command line, e.g. pip install nltk==2.0.5.
-
-If the right-click does not work, launch it from the system cmd > pip install word cloud.
-
-**<ins>obs</ins>**: Microsoft Visual C++ 14.0 is required. Follow further instruction on https://www.scivision.dev/python-windows-visual-c-14-required/)
 
 * PyPDF2 => To extract all the text from the pdf file into a stream
 * numpy => Optional use, to create a shape (mask) for the word cloud
