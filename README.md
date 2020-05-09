@@ -9,10 +9,11 @@ After cloning the project, you may need to install the following packages:
 * wordcloud  => To prepare the enablers and customize the word cloud.
 
 If the right-click does not work, launch it from the system cmd > pip install word cloud.
+
 **<ins>obs</ins>**: Microsoft Visual C++ 14.0 is required. Follow further instruction on https://www.scivision.dev/python-windows-visual-c-14-required/)
 
 * matplotlib.pyplot => To plot the word cloud
-* nltk => Optional use. To inseure the sanitization the text that will be plotted in case the STOPWORDS from the Wordcloud package bugs. 
+* nltk => Optional use. To insure the sanitization the text that will be plotted in case the STOPWORDS from the Wordcloud package bugs. 
 
 It will enable to detect the tokens by lexical type and omit massively the lexical categories that we do not want to plot. 
 e.g., **Determiners & articles** *(the, a ...)*, **Numericals** *(1, two, third ...)*,  **Adverbs** *(really, already, still, early, now)*, **Conjunction** *(and, or, but, if, while, although...)*. 
