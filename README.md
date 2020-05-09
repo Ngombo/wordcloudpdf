@@ -2,7 +2,7 @@ This program was written in python and generates the top-100 word cloud from pdf
 
 # Installation 
 
-Tested in python-2.7.18.amd64 and python-3.8.2-amd64, IDE Pycharm 2019.2.6.
+Test passed for python-2.7.18.amd64 and python-3.8.2-amd64
 
 After cloning the project, you may need to install the following packages:
 
