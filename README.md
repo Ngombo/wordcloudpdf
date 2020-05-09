@@ -31,7 +31,7 @@ Specify both the location path and name of the document to be processed.
 * repo_path = 'C:/..../'
 * input_file = 'xxx.pdf'
 
-The pdf files generated from Latex may present some troubles for the pages created with the insertion of other pdf documents.
+The pdf files generated from LaTeX may present some troubles for the pages created with the insertion of other pdf documents.
 
 # Tested case
 ## Input document
