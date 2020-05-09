@@ -1,6 +1,6 @@
 This program was written in python and generates the top-100 word cloud from pdf files. Many aspects can be customized, including the number of top words, colours, masks and stopwords.
 
-# Installation 
+# 1. Installation 
 
 Test passed for python-2.7.18.amd64 and python-3.8.2-amd64
 
@@ -26,7 +26,7 @@ e.g., **Determiners & articles** *(the, a ...)*, **Numericals** *(1, two, third 
 * collections => Optional use in a checking  functionality that will print the top-words list
 * langdetect => Optional use for future enhancements to enable different processing based on the detected language
 
-# Configuration
+# 2. Configuration
 Specify both the location path and name of the document to be processed.
 
 * repo_path = 'C:/..../'
@@ -34,13 +34,13 @@ Specify both the location path and name of the document to be processed.
 
 The pdf files generated from LaTeX may present some troubles for the pages created with the insertion of other pdf documents.
 
-# Tested case
-## Input document
+# 3. Tested case
+## 3.1 Input document
 repo_path = 'C:/Users/../Desktop/'
 input_file = 'EPRS_BRI(2020)646172_EN.pdf' 
 
 The document  used for the example is available on https://www.europarl.europa.eu/RegData/etudes/BRIE/2020/646172/EPRS_BRI(2020)646172_EN.pdf
 
-## Output wordcloud
+## 3.2 Output wordcloud
 ![wordcloud](https://user-images.githubusercontent.com/28622444/81429128-43904f00-9155-11ea-94e6-e9b58ef072ca.png)
 
